@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 interface Props {
   onAddToDo: ( value:string )=> void
@@ -7,6 +7,11 @@ interface Props {
 
 const TodoAdd = ({ onAddToDo }:Props ) => {
 
+  const inputRef = useRef<HTMLInputElement>(null)
+  const onClick = () => {
+    console.log((inputRef.current as HTMLInputElement));
+    
+  }
   // 输入框
   const [value, setValue] =useState('')
   
@@ -26,12 +31,14 @@ const TodoAdd = ({ onAddToDo }:Props ) => {
     <header className="header">
       <h1>todos</h1>
       <input
+      ref={inputRef}
         className="new-todo"
         placeholder="What needs to be done?"
         autoFocus
         value={value}
         onInput={editValue}
         onKeyDown={keyDown}
+        onClick={onClick}
       />
     </header>
   )
